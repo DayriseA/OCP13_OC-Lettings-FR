@@ -15,6 +15,10 @@ class Address(models.Model):
     def __str__(self):
         return f"{self.number} {self.street}"
 
+    # In order to correct the naive pluralization "Addresss" in the admin interface
+    class Meta:
+        verbose_name_plural = "Addresses"
+
 
 class Letting(models.Model):
     title = models.CharField(max_length=256)
