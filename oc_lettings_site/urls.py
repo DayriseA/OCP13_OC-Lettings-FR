@@ -1,3 +1,5 @@
+"""oc_lettings_site URL Configuration, used as ROOT_URLCONF."""
+
 from django.contrib import admin
 from django.urls import path, include
 

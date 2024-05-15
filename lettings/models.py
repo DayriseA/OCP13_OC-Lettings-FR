@@ -1,8 +1,12 @@
+"""Models for the lettings app."""
+
 from django.db import models
 from django.core.validators import MaxValueValidator, MinLengthValidator
 
 
 class Address(models.Model):
+    """Address model for a letting, with its common fields."""
+
     number = models.PositiveIntegerField(validators=[MaxValueValidator(9999)])
     street = models.CharField(max_length=64)
     city = models.CharField(max_length=64)
@@ -21,6 +25,8 @@ class Address(models.Model):
 
 
 class Letting(models.Model):
+    """Letting model. Made of a title and an address. Represents a property to rent."""
+
     title = models.CharField(max_length=256)
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
 
