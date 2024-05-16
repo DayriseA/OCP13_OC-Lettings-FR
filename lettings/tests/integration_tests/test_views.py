@@ -26,4 +26,4 @@ def test_letting_view_uses_correct_template(client, letting):
 def test_letting_view_with_non_existent_letting_raises_exception(client, letting):
     """Test that ObjectDoesNotExist is raised with a non-existent letting."""
     with pytest.raises(ObjectDoesNotExist):
-        client.get(reverse("lettings:letting", args=[2]))
+        client.get(reverse("lettings:letting", args=[0]))
