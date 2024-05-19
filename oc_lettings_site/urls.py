@@ -7,6 +7,7 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("demo-logs/", views.demo_logs, name="demo_logs"),
     path("", include("lettings.urls")),
     path("", include("profiles.urls")),
     path("admin/", admin.site.urls),
