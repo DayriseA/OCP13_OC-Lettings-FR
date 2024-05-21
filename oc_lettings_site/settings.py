@@ -1,9 +1,13 @@
-"""Django settings for oc_lettings_site project."""
+"""
+Django settings for oc_lettings_site project. Needs environment variables to be 
+properly set, either in the .env file or in the environment itself.
+"""
 
 import os
 import logging
 import sentry_sdk
 
+from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
 from dotenv import load_dotenv
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -12,10 +16,22 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from .env file
+
+def get_env_var(var_name):
+    """Get the environment variable or raise ImproperlyConfigured."""
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = f"Set the {var_name} environment variable"
+        raise ImproperlyConfigured(error_msg)
+
+
+# Load environment variables from .env file if it exists
 dotenv_path = BASE_DIR.joinpath(".env")
-load_dotenv(dotenv_path)
-sentry_dsn = os.getenv("OCL_SENTRY_DSN")
+if dotenv_path.exists():
+    load_dotenv(dotenv_path)
+
+sentry_dsn = os.getenv("SENTRY_DSN")
 
 if sentry_dsn:
     sentry_sdk.init(
@@ -36,7 +52,7 @@ if sentry_dsn:
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s"
+SECRET_KEY = get_env_var("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
@@ -46,7 +62,7 @@ if DEBUG:
 else:
     # SECURITY WARNING: define your production hosts here
     # Since currently developping locally, we will use localhost for now
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    ALLOWED_HOSTS = get_env_var("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -99,11 +115,11 @@ WSGI_APPLICATION = "oc_lettings_site.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
+        "NAME": get_env_var("DB_NAME"),
+        "USER": get_env_var("DB_USER"),
+        "PASSWORD": get_env_var("DB_PASSWORD"),
+        "HOST": get_env_var("DB_HOST"),
+        "PORT": os.getenv("DB_PORT", "5432"),
     }
 }
 

@@ -44,14 +44,16 @@ Si vous souhaiter exécuter les tests, l'utilisateur devra aussi avoir le droit 
 #### Variables d'environnement / .env
 
 - Créer un fichier .env à la racine de votre projet (soit au même niveau que manage.py)
+- Générer et ajouter votre *'DJANGO_SECRET_KEY'*
 - Y ajouter les informations nécessaires pour la connexion à votre base PostgreSQL:
   * *DB_NAME*
   * *DB_USER*
   * *DB_PASSWORD*
   * *DB_HOST*
-  * *DB_PORT*
-- Y ajouter aussi votre DSN pour l'integration avec Sentry via la variable *OCL_SENTRY_DSN*
+  * *DB_PORT* (Si non défini: 5432 par défaut)
+- Y ajouter aussi votre DSN pour l'integration avec Sentry via la variable *SENTRY_DSN*
 - La variable *DEBUG* (True ou False) permet de contrôler si Django se lancera en mode debug ou non.
+- Définir aussi *ALLOWED_HOSTS* (séparateur espace) qui sera nécessaire if *DEBUG = False*
 
 #### Exécuter le site
 
