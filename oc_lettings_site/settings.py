@@ -1,5 +1,5 @@
 """
-Django settings for oc_lettings_site project. Needs environment variables to be 
+Django settings for oc_lettings_site project. Needs environment variables to be
 properly set, either in the .env file or in the environment itself.
 """
 
