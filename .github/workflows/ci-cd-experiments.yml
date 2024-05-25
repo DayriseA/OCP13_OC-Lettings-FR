@@ -81,7 +81,7 @@ jobs:
         id: meta-web
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.DOCKERHUB_USERNAME }}/oc_lettings:web
+          images: ${{ vars.DOCKERHUB_USERNAME }}/oc_lettings_web
           tags: |
             type=ref,event=branch
             type=sha
@@ -92,7 +92,7 @@ jobs:
         id: meta-nginx
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.DOCKERHUB_USERNAME }}/oc_lettings:nginx
+          images: ${{ vars.DOCKERHUB_USERNAME }}/oc_lettings_nginx
           tags: |
             type=ref,event=branch
             type=sha
