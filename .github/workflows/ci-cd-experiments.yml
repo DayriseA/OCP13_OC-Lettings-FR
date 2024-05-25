@@ -83,7 +83,6 @@ jobs:
         with:
           images: ${{ vars.DOCKERHUB_USERNAME }}/oc_lettings_web
           tags: |
-            type=ref,event=branch
             type=sha
             type=raw,value=latest
 
@@ -94,7 +93,6 @@ jobs:
         with:
           images: ${{ vars.DOCKERHUB_USERNAME }}/oc_lettings_nginx
           tags: |
-            type=ref,event=branch
             type=sha
             type=raw,value=latest
 
