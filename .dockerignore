@@ -1,0 +1,44 @@
+# Git and GitHub files
+.git/
+.github/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+
+# Test and coverage reports
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Logs
+logs/
+
+# Docker compose file
+docker-compose.yml
+
+# Python environment
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE settings
+.idea/
+.vscode/
+
+# Build and distribution
+build/
+dist/
+*.egg-info/
+
+# Other
+*.log
+db.sqlite3
+db.sqlite3-journal
