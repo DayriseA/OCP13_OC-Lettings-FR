@@ -12,6 +12,7 @@ django = "^5.0.6"
 psycopg = {extras = ["binary"], version = "^3.1.19"}
 python-dotenv = "^1.0.1"
 sentry-sdk = {extras = ["django"], version = "^2.2.0"}
+gunicorn = "^22.0.0"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.0.0"

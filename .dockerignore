@@ -21,6 +21,9 @@ logs/
 # Docker compose file
 docker-compose.yml
 
+# nginx build context
+nginx/
+
 # Python environment
 .venv
 env/

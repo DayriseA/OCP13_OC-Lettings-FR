@@ -34,6 +34,9 @@ WORKDIR /app
 # Copy the rest of the files
 COPY . /app
 
+# Create a directory for static files
+RUN mkdir /app/staticfiles
+
 # Set the PATH to the venv
 ENV PATH="/app/.venv/bin:$PATH"
 
