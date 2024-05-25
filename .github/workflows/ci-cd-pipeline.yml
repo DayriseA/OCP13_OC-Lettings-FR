@@ -1,6 +1,10 @@
 name: CI/CD Pipeline
 
-on: push
+on:
+  push:
+    branches-ignore:
+      - ci-testing
+      - ci-cd-experiments
 
 jobs:
     build-and-test:
