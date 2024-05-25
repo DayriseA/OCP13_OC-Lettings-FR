@@ -3,7 +3,6 @@ name: CI/CD experiments
 on:
   push:
     branches:
-      - ci-testing
       - ci-cd-experiments
 
 jobs:
@@ -54,7 +53,7 @@ jobs:
 
       - 
         name: Run tests
-        run: poetry run pytest --cov=. --cov-fail-under=80
+        run: poetry run pytest --cov=. --cov-fail-under=99
 
   containerize-and-push:
     runs-on: ubuntu-latest
