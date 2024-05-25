@@ -1,47 +1,51 @@
 name: CI/CD Pipeline
 
-on: push
+on:
+  push:
+    branches-ignore:
+      - ci-testing
+      - ci-cd-experiments
 
 jobs:
-    build-and-test:
-        runs-on: ubuntu-latest
+  build-and-test:
+    runs-on: ubuntu-latest
+    env:
+      DEBUG: 'True'
+      DJANGO_SECRET_KEY: 'supersecret'
+      DB_NAME: 'postgres'
+      DB_USER: 'postgres'
+      DB_PASSWORD: 'postgres'
+      DB_HOST: 'localhost'
+
+    services:
+      postgres:
+        image: postgres:latest
         env:
-          DEBUG: 'True'
-          DJANGO_SECRET_KEY: 'supersecret'
-          DB_NAME: 'postgres'
-          DB_USER: 'postgres'
-          DB_PASSWORD: 'postgres'
-          DB_HOST: 'localhost'
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-        services:
-            postgres:
-                image: postgres:latest
-                env:
-                    POSTGRES_USER: postgres
-                    POSTGRES_PASSWORD: postgres
-                    POSTGRES_DB: postgres
-                ports:
-                    - 5432:5432
-                options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+      - name: Install poetry
+        run: pipx install poetry
 
-            - name: Install poetry
-              run: pipx install poetry
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'poetry'
 
-            - name: Set up Python
-              uses: actions/setup-python@v5
-              with:
-                python-version: '3.11'
-                cache: 'poetry'
+      - name: Install dependencies
+        run: poetry install
 
-            - name: Install dependencies
-              run: poetry install
+      - name: Run linting
+        run: poetry run flake8
 
-            - name: Run linting
-              run: poetry run flake8
-
-            - name: Run tests
-              run: poetry run pytest --cov=. --cov-fail-under=80
+      - name: Run tests
+        run: poetry run pytest --cov=. --cov-fail-under=80
