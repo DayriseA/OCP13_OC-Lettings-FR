@@ -84,14 +84,6 @@ jobs:
           tags: type=ref,event=branch
 
       -
-        name: Extract metadata for nginx
-        id: meta-nginx
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ vars.DOCKERHUB_USERNAME }}/oc_lettings_nginx
-          tags: type=ref,event=branch
-
-      -
         name: Build and push web image
         uses: docker/build-push-action@v5
         with:
@@ -99,13 +91,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ steps.meta-web.outputs.tags }}
-
-      -
-        name: Build and push nginx image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./nginx
-          file: ./nginx/Dockerfile
-          push: true
-          tags: ${{ steps.meta-nginx.outputs.tags }}
 

@@ -14,7 +14,7 @@ services:
       retries: 5
 
   web:
-    image: dayrise/oc_lettings_web:latest
+    image: dayrise/oc_lettings_web:ci-cd-experiments
     build: .
     environment:
       - DEBUG="False"
@@ -29,8 +29,8 @@ services:
     volumes:
       - ./logs:/app/logs
       - static_volume:/app/staticfiles
-    expose:
-      - 8000
+    ports:
+      - "8000:8000"
     depends_on:
       - db
     
