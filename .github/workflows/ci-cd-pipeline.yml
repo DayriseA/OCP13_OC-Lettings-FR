@@ -1,9 +1,6 @@
-name: CI/CD Pipeline
+name: Main CI/CD Pipeline
 
-on:
-  push:
-    branches-ignore:
-      - ci-cd-experiments
+on: push
 
 jobs:
   build-and-test:
@@ -87,16 +84,6 @@ jobs:
             type=raw,value=latest
 
       -
-        name: Extract metadata for nginx
-        id: meta-nginx
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ vars.DOCKERHUB_USERNAME }}/oc_lettings_nginx
-          tags: |
-            type=sha
-            type=raw,value=latest
-
-      -
         name: Build and push web image
         uses: docker/build-push-action@v5
         with:
@@ -104,12 +91,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ steps.meta-web.outputs.tags }}
-
-      -
-        name: Build and push nginx image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./nginx
-          file: ./nginx/Dockerfile
-          push: true
-          tags: ${{ steps.meta-nginx.outputs.tags }}

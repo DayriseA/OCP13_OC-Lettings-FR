@@ -25,24 +25,14 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_HOST=db
       - DB_PORT=${DB_PORT}
-    command: gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:8080
     volumes:
       - ./logs:/app/logs
       - static_volume:/app/staticfiles
     expose:
-      - 8000
+      - 8080
     depends_on:
       - db
-
-  nginx:
-    image: dayrise/oc_lettings_nginx:latest
-    build: ./nginx
-    ports:
-      - 8181:80
-    depends_on:
-      - web
-    volumes:
-      - static_volume:/app/staticfiles
     
 
 volumes:

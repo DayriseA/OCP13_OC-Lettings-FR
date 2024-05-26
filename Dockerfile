@@ -50,7 +50,7 @@ RUN chmod +x /app/entrypoint.sh
 RUN addgroup --system app && adduser --system --group app
 RUN chown -R app:app /app
 
-EXPOSE 8000
+EXPOSE 8080
 
 USER app
 
