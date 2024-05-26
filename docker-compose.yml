@@ -33,16 +33,6 @@ services:
       - 8000
     depends_on:
       - db
-
-  nginx:
-    image: dayrise/oc_lettings_nginx:latest
-    build: ./nginx
-    ports:
-      - 8181:80
-    depends_on:
-      - web
-    volumes:
-      - static_volume:/app/staticfiles
     
 
 volumes:
