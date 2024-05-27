@@ -25,12 +25,11 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_HOST=db
       - DB_PORT=${DB_PORT}
-    command: gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:8080
     volumes:
       - ./logs:/app/logs
       - static_volume:/app/staticfiles
-    expose:
-      - 8080
+    ports:
+      - "8000:8000"
     depends_on:
       - db
     

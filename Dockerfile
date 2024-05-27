@@ -34,23 +34,28 @@ WORKDIR /app
 # Copy the rest of the files
 COPY . /app
 
+# Fix line endings for Unix compatibility (Windows uses CRLF, Unix uses LF)
+RUN sed -i 's/\r$//g' /app/entrypoint.sh
+
+# Start and enable SSH, make the entrypoint script executable
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends dialog \
+    && apt-get install -y --no-install-recommends openssh-server \
+    && echo "root:Docker!" | chpasswd \
+    && chmod u+x /app/entrypoint.sh
+COPY sshd_config /etc/ssh/
+
 # Create a directory for static files
 RUN mkdir /app/staticfiles
 
 # Set the PATH to the venv
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Fix line endings for Unix compatibility (Windows uses CRLF, Unix uses LF)
-RUN sed -i 's/\r$//g' /app/entrypoint.sh
-
-# Make the entrypoint script executable
-RUN chmod +x /app/entrypoint.sh
-
 # Create a user and group to run the application
 RUN addgroup --system app && adduser --system --group app
 RUN chown -R app:app /app
 
-EXPOSE 8080
+EXPOSE 8000 2222
 
 USER app
 
