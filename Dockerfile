@@ -16,7 +16,7 @@ COPY pyproject.toml poetry.lock /app/
 WORKDIR /app
 
 # Install main dependencies
-RUN poetry install --no-dev --no-interaction
+RUN poetry install --no-interaction --without dev
 
 
 # Runtime / Final image
