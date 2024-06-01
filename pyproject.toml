@@ -34,4 +34,5 @@ omit = [
     "*/settings.py",
     "*/asgi.py",
     "manage.py",
+    "initadmin.py",
 ]
