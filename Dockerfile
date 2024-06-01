@@ -1,4 +1,4 @@
-FROM python:3.11-slim as builder
+FROM --platform=linux/amd64 python:3.11-slim as builder
 
 # Install curl to get poetry
 RUN apt-get update && apt-get install -y curl
@@ -20,7 +20,7 @@ RUN poetry install --no-interaction --without dev
 
 
 # Runtime / Final image
-FROM python:3.11-slim
+FROM --platform=linux/amd64 python:3.11-slim
 
 # Set Python environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -37,14 +37,6 @@ COPY . /app
 # Fix line endings for Unix compatibility (Windows uses CRLF, Unix uses LF)
 RUN sed -i 's/\r$//g' /app/entrypoint.sh
 
-# Start and enable SSH, make the entrypoint script executable
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends dialog \
-    && apt-get install -y --no-install-recommends openssh-server \
-    && echo "root:Docker!" | chpasswd \
-    && chmod u+x /app/entrypoint.sh
-COPY sshd_config /etc/ssh/
-
 # Create a directory for static files
 RUN mkdir /app/staticfiles
 
@@ -55,9 +47,12 @@ ENV PATH="/app/.venv/bin:$PATH"
 RUN addgroup --system app && adduser --system --group app
 RUN chown -R app:app /app
 
-EXPOSE 8000 2222
+EXPOSE 8000
 
 USER app
+
+# Make the entrypoint executable
+RUN chmod u+x /app/entrypoint.sh
 
 # Not intended to run alone so we will start the server in docker-compose file
 ENTRYPOINT [ "/app/entrypoint.sh" ]

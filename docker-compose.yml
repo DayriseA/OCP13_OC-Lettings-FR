@@ -17,7 +17,7 @@ services:
     image: dayrise/oc_lettings_web:latest
     build: .
     environment:
-      - DEBUG="False"
+      - DEBUG=False
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - DB_NAME=${DB_NAME}

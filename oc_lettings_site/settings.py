@@ -164,11 +164,18 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "/static/"
+# Copy static assets into a path called `staticfiles` (required name for Render)
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# This production code might break dev mode, so we check whether we're in DEBUG mode
+if not DEBUG:
+    # Enable WhiteNoise storage backend, which compresses static files and renames the
+    # files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
