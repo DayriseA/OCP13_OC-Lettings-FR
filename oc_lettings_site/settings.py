@@ -64,6 +64,9 @@ else:
     # Since currently developping locally, we will use localhost for now
     ALLOWED_HOSTS = get_env_var("ALLOWED_HOSTS").split(" ")
 
+    # We also need to define the CSRF_TRUSTED_ORIGINS in production
+    CSRF_TRUSTED_ORIGINS = get_env_var("CSRF_TRUSTED_ORIGINS").split(" ")
+
 
 # Application definition
 
