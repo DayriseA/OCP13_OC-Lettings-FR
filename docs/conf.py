@@ -7,14 +7,15 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 
-# Django connection
-import os
-import sys
-import django
+# Django connection. Not necessary in current documentation state but make
+# the readthedocs build fails if django not installed. So commenting out for now.
+# import os
+# import sys
+# import django
 
-sys.path.insert(0, os.path.abspath(".."))
-os.environ["DJANGO_SETTINGS_MODULE"] = "oc_lettings_site.settings"
-django.setup()
+# sys.path.insert(0, os.path.abspath(".."))
+# os.environ["DJANGO_SETTINGS_MODULE"] = "oc_lettings_site.settings"
+# django.setup()
 
 project = "OC Lettings"
 copyright = "2024, Adrien MAISAK"
