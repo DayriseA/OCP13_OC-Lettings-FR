@@ -12,20 +12,17 @@ Refonte du site web d'Orange County Lettings
 
 ### Prérequis
 
-- Compte GitHub avec accès en lecture à ce repository
 - Git CLI
-- PostgreSQL
+- PostgreSQL installé (et démarré)
 - Interpréteur Python, version 3.10 ou supérieure
-- Poetry
-- Un compte Sentry
-
-Dans le reste de la documentation sur le développement local, il est supposé que la commande `python` de votre OS shell exécute l'interpréteur Python ci-dessus (à moins qu'un environnement virtuel ne soit activé).
+- Poetry (Doc [here](https://python-poetry.org/docs/) if needed)
+- [Optionnel] Un compte Sentry (si besoin en local...).
 
 
 #### Cloner le repository
 
-- `cd /path/to/put/project/in`
-- `git clone https://github.com/DayriseA/OCP13_OC-Lettings-FR.git`
+Se positionner dans un dossier à votre convenance où cloner le repo puis faire:  
+`git clone https://github.com/DayriseA/OCP13_OC-Lettings-FR.git`
 
 #### Dépendances et environnement virtuel
 
@@ -40,20 +37,31 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 Créer une base de donnée pour l'application et un utilisateur qui en aura les droits.  
 Si vous souhaiter exécuter les tests, l'utilisateur devra aussi avoir le droit de créer des tables.
+```psql
+CREATE USER <username> WITH PASSWORD '<password>' CREATEDB;
+CREATE DATABASE <dbname> OWNER <username>;
+```
 
 #### Variables d'environnement / .env
 
 - Créer un fichier .env à la racine de votre projet (soit au même niveau que manage.py)
-- Générer et ajouter votre *'DJANGO_SECRET_KEY'*
 - Y ajouter les informations nécessaires pour la connexion à votre base PostgreSQL:
-  * *DB_NAME*
-  * *DB_USER*
-  * *DB_PASSWORD*
-  * *DB_HOST*
-  * *DB_PORT* (Si non défini: 5432 par défaut)
-- Y ajouter aussi votre DSN pour l'integration avec Sentry via la variable *SENTRY_DSN*
-- La variable *DEBUG* (True ou False) permet de contrôler si Django se lancera en mode debug ou non.
-- Définir aussi *ALLOWED_HOSTS* (séparateur espace) qui sera nécessaire if *DEBUG = False*
+  * **DB_NAME**
+  * **DB_USER**
+  * **DB_PASSWORD**
+  * **DB_HOST**
+  * **DB_PORT** (Si non défini: 5432 par défaut)
+- Si voulu, pour l'integration avec Sentry, la variable **SENTRY_DSN**
+- Définir la variable **DEBUG** à True
+
+#### Faire les migrations
+
+Lancer les migrations avec `poetry run python manage.py migrate`
+
+#### Create a superuser
+
+La base est actuellement vide et dans l'état actuel on ne peut rajouter du contenu que via l'interface admin.
+Créer donc votre superuser django avec `poetry run python manage.py createsuperuser`
 
 #### Exécuter le site
 
@@ -81,3 +89,5 @@ Les fichiers de logs générés par la configuration de logging seront placés d
 - Aller sur `http://localhost:8000/admin`
 - Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
 
+
+## Démarrage rapide (local)
