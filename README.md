@@ -15,7 +15,7 @@ Refonte du site web d'Orange County Lettings
 - Git CLI
 - PostgreSQL installé (et démarré)
 - Interpréteur Python, version 3.10 ou supérieure
-- Poetry (Doc [here](https://python-poetry.org/docs/) if needed)
+- Poetry (Doc [ici](https://python-poetry.org/docs/) si besoin)
 - [Optionnel] Un compte Sentry (si besoin en local...).
 
 
