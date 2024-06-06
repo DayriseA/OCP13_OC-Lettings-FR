@@ -89,8 +89,15 @@ Les fichiers de logs générés par la configuration de logging seront placés d
 - Aller sur `http://localhost:8000/admin`
 - Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
 
+## CI/CD
 
-## Full documentation
+Ce repo fait l'objet d'une pipeline CI/CD qui est définie dans ***.github/workflows/ci-cd-pipeline.yml***  
+Chaque push va provoquer un job qui effectuera les tests et le linting puis, en cas de succès et si l'on est sur la branche 'main', une image docker sera construite et poussée sur Docker Hub.  
+Le déploiement se fait automatiquement via webhook lorsqu'une nouvelle image est poussée.  
+Plus de détails sur la partie correspondante dans la documentation complète (cf. ci-après)
 
-A more exhaustive documentation is available on:  
+
+## Documentation complète
+
+Une documentation plus exhaustive est disponible sur:  
 https://amk-oc-lettings.readthedocs.io/en/latest/
