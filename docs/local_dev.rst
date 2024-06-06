@@ -2,6 +2,7 @@
 LOCAL DEV SETUP
 ###############
 
+
 Installation (local dev)
 ========================
 
@@ -53,7 +54,7 @@ As an admin user, run the following commands:
 *(The CREATEDB option here is necessary if you want to run the tests.)*
 
 
-Set necessary environment variables
+Set up environment variables
 -----------------------------------
 
 Create a `.env` file in the project root directory (same level as *manage.py*) and fill it like in 

@@ -55,6 +55,7 @@ jobs:
   containerize-and-push:
     runs-on: ubuntu-latest
     needs: build-and-test
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - 
@@ -90,3 +91,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ steps.meta-web.outputs.tags }}
+
+# Deployed at https://oc-lettings-prebuilt-image.onrender.com through 
+# a webhook between Render and Docker Hub

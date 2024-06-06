@@ -25,7 +25,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_HOST=db
-      - DB_PORT=${DB_PORT}
+      - SENTRY_DSN=${SENTRY_DSN}
     volumes:
       - ./logs:/app/logs
       - static_volume:/app/staticfiles

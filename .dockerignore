@@ -45,3 +45,6 @@ dist/
 *.log
 db.sqlite3
 db.sqlite3-journal
+
+# Docs
+docs/

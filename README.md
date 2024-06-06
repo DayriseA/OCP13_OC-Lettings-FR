@@ -90,4 +90,7 @@ Les fichiers de logs générés par la configuration de logging seront placés d
 - Connectez-vous avec l'utilisateur `admin`, mot de passe `Abc1234!`
 
 
-## Démarrage rapide (local)
+## Full documentation
+
+A more exhaustive documentation is available on:  
+https://amk-oc-lettings.readthedocs.io/en/latest/

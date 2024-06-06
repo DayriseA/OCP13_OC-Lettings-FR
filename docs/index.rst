@@ -21,6 +21,7 @@ The goal is to start with an existing project in poor condition and improve it:
 
    local_dev
    quickstart
+   ci-cd
 
 
 Indices and tables
